@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, Text, View, Button, ScrollView, Image, TouchableOpacity} from 'react-native';
 
-export default function home({navigation}) {
+export default function categories({navigation}) {
     const categories = [
         {name: 'Pizza', img: 'https://www.delonghi.com/Global/recipes/multifry/pizza_fresca.jpg'},
         {name: 'Drinks', img: 'https://i.pinimg.com/originals/4c/90/69/4c906919db5ec51de6a7bcafc76e2812.png'},
@@ -12,7 +12,7 @@ export default function home({navigation}) {
     <View>
         <ScrollView>
             {categories.map((category, index)=>
-                <TouchableOpacity key={index} onPress={() => navigation.navigate('Categories', {itemId: category.name})}>
+                <TouchableOpacity key={index} onPress={() => navigation.navigate('Category-Items', {itemId: category.name})}>
                 <View style={styles.imgCard} >
                     <View style={styles.catName}>
                         <View>

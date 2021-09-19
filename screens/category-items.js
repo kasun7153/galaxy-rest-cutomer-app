@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, Text, View, Button, ScrollView, TouchableOpacity, Image} from 'react-native';
 
-export default function categories({navigation,route}) {
+export default function categoryItems({navigation,route}) {
     const { itemId } = route.params;
     const types = [
         {name: 'Chicago Pizza', price:120, img: 'https://www.delonghi.com/Global/recipes/multifry/pizza_fresca.jpg'},
@@ -13,7 +13,7 @@ export default function categories({navigation,route}) {
     return (
         <View style={styles.container}>
             {types.map((type ,index)=>
-                <TouchableOpacity key={index} style={{width: '50%', padding: 10 }}>
+                <TouchableOpacity onPress={() => navigation.navigate('Add-to-Cart', {itemId: type.name})} key={index} style={{width: '50%', padding: 10 }}>
                     <View>
                         <View>
                             <Image
