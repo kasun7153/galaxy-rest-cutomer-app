@@ -1,7 +1,7 @@
 import React from 'react'
 import {StyleSheet, Text, View, Button, ScrollView, TouchableOpacity, Image} from 'react-native';
 
-export default function details({navigation,route}) {
+export default function categories({navigation,route}) {
     const { itemId } = route.params;
     const types = [
         {name: 'Chicago Pizza', price:120, img: 'https://www.delonghi.com/Global/recipes/multifry/pizza_fresca.jpg'},

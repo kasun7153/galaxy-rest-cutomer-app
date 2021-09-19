@@ -12,7 +12,7 @@ export default function home({navigation}) {
     <View>
         <ScrollView>
             {categories.map((category, index)=>
-                <TouchableOpacity key={index} onPress={() => navigation.navigate('Details', {itemId: category.name})}>
+                <TouchableOpacity key={index} onPress={() => navigation.navigate('Categories', {itemId: category.name})}>
                 <View style={styles.imgCard} >
                     <View style={styles.catName}>
                         <View>
