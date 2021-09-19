@@ -1,13 +1,37 @@
-import React from 'react'
+import React,{useLayoutEffect} from 'react'
 import {StyleSheet, Text, View, Button, ScrollView, Image, TouchableOpacity} from 'react-native';
+import {MaterialIcons} from '@expo/vector-icons';
+import HeaderCartIcon from '../shared/headerCartIcon';
 
 export default function categories({navigation}) {
+    useLayoutEffect(()=>{
+        navigation.setOptions({
+            headerBackVisible: false,
+            headerTitle:()=>(
+                <View style={{marginLeft: 100}}>
+                    <Text style={{color:"black",fontWeight: "700", textAlign: 'center', fontSize: 18}}>
+                        Galaxy Rest
+                    </Text>
+                </View>
+            ),
+            headerLeft:()=>(
+                <TouchableOpacity onPress={navigation.goBack}>
+                    <MaterialIcons name="menu" size={28} onPress={() => navigation.openDrawer()}/>
+                </TouchableOpacity>
+            ),
+            headerRight:()=>(
+                <HeaderCartIcon navigation={navigation}/>
+            )
+        })
+    },[navigation])
+
     const categories = [
         {name: 'Pizza', img: 'https://www.delonghi.com/Global/recipes/multifry/pizza_fresca.jpg'},
         {name: 'Drinks', img: 'https://i.pinimg.com/originals/4c/90/69/4c906919db5ec51de6a7bcafc76e2812.png'},
         {name: 'Fried Rice', img: 'https://img-global.cpcdn.com/recipes/5da646cc1c73a947/1200x630cq70/photo.jpg'},
         {name: 'Other', img: 'https://www.delonghi.com/Global/recipes/multifry/pizza_fresca.jpg'}
     ]
+
     return (
     <View>
         <ScrollView>

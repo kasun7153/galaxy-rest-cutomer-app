@@ -1,10 +1,50 @@
-import React from 'react'
+import React, {useLayoutEffect} from 'react';
 import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import {Button,Divider} from 'react-native-elements';
+import {AntDesign} from '@expo/vector-icons';
+import {Button, Divider} from 'react-native-elements';
+import {useDispatch} from 'react-redux';
+import {addToCart} from '../redux/cart/cartActions';
+import HeaderCartIcon from '../shared/headerCartIcon';
+import Toast from 'react-native-toast-message';
 
-export default function AddToCart() {
+export default function AddToCart({navigation, route}) {
+
+    useLayoutEffect(()=>{
+        navigation.setOptions({
+            headerTitle:()=>(
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                    <Text style={{color:"black", fontWeight: "700", fontSize: 20}}>
+                        {route.params.item.name || "Loading"}
+                    </Text>
+                </View>
+            ),
+            headerRight:()=>(
+                <HeaderCartIcon navigation={navigation}/>
+            )
+        })
+    },[navigation])
+
+    const dispatch = useDispatch();
     const [qty, setQty] = React.useState(1);
+
+    const item = route.params.item || {
+        name: 'Loading',
+        price:0,
+        img: 'https://cdn.pixabay.com/photo/2017/06/27/22/21/banana-2449019_1280.jpg',
+        discount: 0
+    }
+
+    const addThisToCart = () => {
+        dispatch(addToCart({...item,qty}))
+        setQty(1)
+        Toast.show({
+            topOffset: 10,
+            visibilityTime: 2000,
+            position: 'top',
+            type: 'success',
+            text1: 'Successfully added to the cart',
+        });
+    }
 
     const plusQty = ( ) => {
         setQty(qty+1)
@@ -22,22 +62,27 @@ export default function AddToCart() {
                 <Image
                     style={styles.image}
                     source={{
-                        uri: 'https://cdn.pixabay.com/photo/2017/06/27/22/21/banana-2449019_1280.jpg',
+                        uri: route.params.item.img ,
                     }}
                 />
                 <View style={styles.itemDetails}>
                     <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                         <View>
-                            <Text style={styles.itemName}>Kolikuttu 1Kg</Text>
+                            <Text style={styles.itemName}>{item.name}</Text>
                             <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 15}}>
-                                <AntDesign onPress={minusQty} name="minuscircle" size={45} color="#BBD7FB" style={{backgroundColor:'#4B76D1', borderRadius: 100}}/>
+                                <AntDesign onPress={minusQty} name="minuscircle" size={40} color="#BBD7FB" style={{backgroundColor:'#4B76D1', borderRadius: 100}}/>
                                 <Text style={styles.qty}>{qty}</Text>
-                                <AntDesign onPress={plusQty} name="pluscircle" size={45} color="#4B76D1" />
+                                <AntDesign onPress={plusQty} name="pluscircle" size={40} color="#4B76D1" />
                             </View>
                         </View>
                         <View style={{justifyContent: 'center'}}>
-                            <Text style={styles.price}>Rs 1250.00</Text>
-                            <Text style={styles.discountPrice}>Rs 950.00</Text>
+                            {item.discount?
+                                <>
+                                    <Text style={styles.price}>Rs {item.price.toFixed(2)}</Text>
+                                    <Text style={styles.discountPrice}>Rs {item.price.toFixed(2)}</Text>
+                                </>:
+                                    <Text style={styles.price}>Rs {item.price.toFixed(2)}</Text>
+                            }
                         </View>
                     </View>
 
@@ -52,8 +97,9 @@ export default function AddToCart() {
                 </View>
             </ScrollView>
             <View style={{alignItems: 'center'}}>
-                <Button disabled={qty>0?false:true} buttonStyle={{height:55}} containerStyle={styles.button}  title={`Add to cart (${qty} Items)`}/>
+                <Button onPress={addThisToCart} disabled={qty>0?false:true} buttonStyle={{height:55}} containerStyle={styles.button}  title={`Add to cart (${qty} Items)`}/>
             </View>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </View>
     )
 }

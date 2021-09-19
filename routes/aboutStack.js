@@ -10,13 +10,9 @@ const Stack = createNativeStackNavigator();
 
 export default function aboutStack() {
     return (
-    
-            <Stack.Navigator screenOptions={({ navigation, route }) => ({
-                headerTitle: props => <Header navigation={navigation} route={route}/>,
-            })}>
-                <Stack.Screen name="About Us" component={About} />
-            </Stack.Navigator>
-       
+        <Stack.Navigator>
+            <Stack.Screen name="About Us" component={About} />
+        </Stack.Navigator>
     )
 }
 
