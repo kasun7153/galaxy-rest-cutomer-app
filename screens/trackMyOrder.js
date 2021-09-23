@@ -2,17 +2,31 @@ import React, {useLayoutEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import logo from '../assets/logo.png';
+import axios from 'axios';
+import {useSelector} from 'react-redux';
+import config from '../config/config.json';
 
-export default function About({navigation}) {
+export default function TrackMyOrder({navigation}) {
+  const {customerName, idNumber, tableNumber} = useSelector((state) => state.userManagementReducer);
+  const [myOrders, setMyOrders] = React.useState([]);
+
+  React.useEffect(() => {
+    axios.get(`${config.API}/order/${idNumber}`).then(({data}) => {
+      setMyOrders(data);
+    }).catch(e => {
+      console.log(e);
+    });
+  }, []);
+
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: true,
       headerBackVisible: false,
       headerTitle: () => (
-        <View style={{marginLeft: 100}}>
+        <View style={{marginLeft: 75}}>
           <Text style={{color: 'black', fontWeight: '700', textAlign: 'center', fontSize: 18}}>
-            About Us
+            Track My Orders
           </Text>
         </View>
       ),
