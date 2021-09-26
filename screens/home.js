@@ -24,7 +24,7 @@ export default function Home({navigation}) {
   return (
     <KeyboardAvoidingView style={styles.container}>
       <Image source={logo} style={{width: 200, height: 200, marginBottom: 30}}/>
-      <View style={{borderWidth: 1, borderColor: '#ccc', borderStyle: 'solid', flexDirection: 'row', marginBottom: 30}}>
+      <View style={{ flexDirection: 'row', marginBottom: 30}}>
         <Picker
           selectedValue={tableNumber}
           style={{
