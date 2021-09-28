@@ -8,7 +8,7 @@ import Toast from 'react-native-toast-message';
 import {removeCartItem, resetCart} from '../redux/cart/cartActions';
 import config from '../config/config.json';
 
-export default function Cart() {
+export default function Cart({navigation}) {
 
   const dispatch = useDispatch();
   const items = useSelector((state) => state.cartReducer.items);
@@ -120,11 +120,11 @@ export default function Cart() {
       </ScrollView>
       <View style={{alignItems: 'center'}}>
         <Button
-          onPress={placeOrder}
-          disabled={items.length > 0 ? false : true}
+          onPress={items.length > 0 ? placeOrder : ()=>navigation.navigate('Track my order')}
+          // disabled={items.length > 0 ? false : true}
           buttonStyle={{height: 55}}
           containerStyle={styles.button}
-          title="Confirm & Place Order"
+          title={items.length > 0 ? "Confirm & Place Order" : "Track My Orders"}
         />
       </View>
     </View>

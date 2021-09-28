@@ -5,6 +5,7 @@ import logo from '../assets/logo.png';
 import {Button, Input} from 'react-native-elements';
 import {useDispatch, useSelector} from 'react-redux';
 import {setUserDetails} from '../redux/userManagment/userManagementActions';
+import Toast from 'react-native-toast-message';
 
 export default function Home({navigation}) {
   const [tableNumber, setTableNumber] = React.useState(1);
@@ -15,10 +16,20 @@ export default function Home({navigation}) {
   const userManager = useSelector((state) => state.userManagementReducer);
 
   const login = () => {
-    dispatch(setUserDetails({customerName, idNumber, tableNumber}));
-    setCustomerName('');
-    setIdNumber('');
-    setTableNumber(1);
+    if(customerName && idNumber && tableNumber){
+      dispatch(setUserDetails({customerName, idNumber, tableNumber}));
+      setCustomerName('');
+      setIdNumber('');
+      setTableNumber(1);
+    } else {
+      Toast.show({
+        topOffset: 40,
+        visibilityTime: 1500,
+        position: 'top',
+        type: 'error',
+        text1: 'Please fill all the details',
+      });
+    }
   };
 
   return (

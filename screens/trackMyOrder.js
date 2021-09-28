@@ -1,22 +1,34 @@
 import React, {useLayoutEffect} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {MaterialIcons} from '@expo/vector-icons';
 import logo from '../assets/logo.png';
 import axios from 'axios';
 import {useSelector} from 'react-redux';
 import config from '../config/config.json';
+import { Card, ListItem, Button, Icon } from 'react-native-elements'
+import moment from 'moment';
 
 export default function TrackMyOrder({navigation}) {
   const {customerName, idNumber, tableNumber} = useSelector((state) => state.userManagementReducer);
   const [myOrders, setMyOrders] = React.useState([]);
 
-  React.useEffect(() => {
+  const getOrders = ()=>{
     axios.get(`${config.API}/order/${idNumber}`).then(({data}) => {
       setMyOrders(data);
     }).catch(e => {
       console.log(e);
     });
-  }, []);
+  }
+
+  React.useEffect(() => {
+    getOrders();
+    const getData = setInterval(()=>{
+      getOrders();
+    }, 5000)
+    return () => {
+      clearInterval(getData);
+    };
+  }, [navigation]);
 
 
   useLayoutEffect(() => {
@@ -38,22 +50,28 @@ export default function TrackMyOrder({navigation}) {
     });
   }, [navigation]);
 
+  const getPrice=(order)=>{
+    let price=0
+    order?.foodItems?.forEach(item=>price+=item.qty * item.soldPrice)
+    return price
+  }
+
   return (
     <View style={styles.container}>
-      <Image source={logo} style={{width: 200, height: 200., marginTop: 20}}/>
-      <Text style={{fontSize: 18, textAlign: 'center', marginTop: 20}}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad animi aspernatur at, cum distinctio dolores eos
-        expedita necessitatibus nobis optio porro ratione rem sed voluptates. Aspernatur deserunt dolorem libero.
-      </Text>
+      <ScrollView >
+      {myOrders.map((order,index)=>
+          <Card key={index}>
+            <Text>State = {order.state}</Text>
+            <Text>Order placed at= {moment(order.createdAt).format('DD-MM-YYYY, h:mm a')}</Text>
+            <Text>Total Price = Rs. {getPrice(order).toFixed(2)}</Text>
+          </Card>
+      )}
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    alignItems: 'center',
-    flex: 1,
-    backgroundColor: 'white'
   }
 });

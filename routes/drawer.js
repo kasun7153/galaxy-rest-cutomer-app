@@ -10,6 +10,7 @@ import Ratings from '../screens/raings';
 import TrackMyOrder from '../screens/trackMyOrder';
 import {useDispatch} from 'react-redux';
 import {resetUserDetails} from '../redux/userManagment/userManagementActions';
+import RoomReservation from '../screens/roomReservation';
 
 const Drawer = createDrawerNavigator();
 
@@ -67,7 +68,13 @@ export default function drawer({navigation}) {
           drawerIcon: config => <AntDesign name="find" size={24} color="black"/>
         }}
       />
-
+      <Drawer.Screen
+        name="Room Reservation"
+        component={RoomReservation}
+        options={{
+          drawerIcon: config => <MaterialIcons name="meeting-room" size={24} color="black" />
+        }}
+      />
       <Drawer.Screen
         name="Ratings"
         component={Ratings}
