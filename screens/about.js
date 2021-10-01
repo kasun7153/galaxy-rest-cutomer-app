@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {MaterialIcons} from '@expo/vector-icons';
+import {Ionicons, MaterialCommunityIcons, MaterialIcons} from '@expo/vector-icons';
 import logo from '../assets/logo.png';
 
 export default function About({navigation}) {
@@ -28,9 +28,29 @@ export default function About({navigation}) {
     <View style={styles.container}>
       <Image source={logo} style={{width: 200, height: 200., marginTop: 20}}/>
       <Text style={{fontSize: 18, textAlign: 'center', marginTop: 20}}>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad animi aspernatur at, cum distinctio dolores eos
-        expedita necessitatibus nobis optio porro ratione rem sed voluptates. Aspernatur deserunt dolorem libero.
+        The story of Galaxy Rest which opened its doors in 1984 is a splendid tale of continual improvement of product and the highest standards of quality in hospitality.
       </Text>
+
+      <View style={{marginTop: 40}}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <MaterialIcons name="email" size={24} color="black" />
+          <Text style={{fontSize: 18, textAlign: 'center', marginLeft: 10}}>
+            info@galaxyresta.com
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', marginTop: 20, alignItems: 'center'}}>
+          <Ionicons name="call" size={24} color="black" />
+          <Text style={{fontSize: 18, textAlign: 'center', marginLeft: 10}}>
+            +94763250332
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', marginTop: 20, alignItems: 'center'}}>
+          <MaterialCommunityIcons name="web" size={24} color="black" />
+          <Text style={{fontSize: 18, textAlign: 'center', marginLeft: 10}}>
+            www.galaxy-rest.com
+          </Text>
+        </View>
+      </View>
     </View>
   );
 }
