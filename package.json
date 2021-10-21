@@ -5,7 +5,30 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|react-navigation|react-native-vector-icons|@unimodules))"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "android.ts",
+      "android.tsx"
+    ],
+    "setupFiles": [
+      "./setupJest.js"
+    ]
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.8",
@@ -40,8 +63,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.15.8",
     "@expo/vector-icons": "^12.0.5",
-    "react-redux": "^7.2.5"
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-native": "^8.0.0",
+    "jest": "^26.6.3",
+    "jest-expo": "^42.1.0",
+    "jest-fetch-mock": "^3.0.3",
+    "react-redux": "^7.2.5",
+    "react-test-renderer": "^17.0.2",
+    "redux-mock-store": "^1.5.4"
   },
   "private": true
 }

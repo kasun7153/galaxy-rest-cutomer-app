@@ -57,6 +57,7 @@ export default function Home({navigation}) {
         onChangeText={text => setCustomerName(text)}
         placeholder="Your Name"
         type="text"
+        testID='Home.yourName'
       />
       <Input
         value={idNumber}
@@ -64,6 +65,7 @@ export default function Home({navigation}) {
         //errorMessage="NIC number is required"
         placeholder="Your NIC Number"
         type="numeric"
+        testID='Home.nicNumber'
       />
       <Button
         onPress={login}
@@ -71,6 +73,7 @@ export default function Home({navigation}) {
         buttonStyle={{height: 55}}
         containerStyle={styles.button}
         title="Get Started"
+        testID='Home.getStarted'
       />
     </KeyboardAvoidingView>
   );

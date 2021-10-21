@@ -70,7 +70,7 @@ export default function Ratings({navigation}) {
         <Input
           value={review}
           onChangeText={text => setReview(text)}
-          placeholder="Write your Review" autoFocus
+          placeholder="Write your review" autoFocus
           type="text"
         />
         <Button
