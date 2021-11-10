@@ -51,6 +51,7 @@ export default function RoomBookModel({open, setOpen, room, navigation}) {
           text1: 'Successfully booked your room',
         });
       }).catch(e => {
+        console.log(data)
         console.log(e);
         setOpen(false)
         Toast.show({
